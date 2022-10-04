@@ -9,7 +9,6 @@ public class GameOverScript : MonoBehaviour
         if(col.collider.tag == "Obstacle")
         {
             GameManagerScript.Instance.IsGameOver = true;
-          //  FindObjectOfType<ObstacleSpawnerScript>().isGameOver = false;
         }
     }
 }

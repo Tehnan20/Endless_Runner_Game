@@ -6,11 +6,7 @@ public class DestroyObstaclesScript : MonoBehaviour
 {
     void OnTriggerEnter(Collider col)
     {
-        Destroy(col.gameObject, 1);
+        FindObjectOfType<ObstacleSpawnerScript>().allObstacles.Remove(col.gameObject);
+        Destroy(col.gameObject, 1f);
     }
-    // void OnTriggerEnter(Collider col)
-    // {
-    //     Debug.Log("OnTriggerEnter");
-    //     col.gameObject.SetActive(false);
-    // }
 }
