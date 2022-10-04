@@ -23,20 +23,27 @@ public class EndlessRunnerGame : MonoBehaviour
     // }
     void Update()
     {
-        transform.position = Player.position + Offset;   
+        if(GameManagerScript.Instance.IsGameOver == false)
+        {
+            transform.position = Player.position + Offset;   
+        }
     }
+    
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A))
+        if(GameManagerScript.Instance.IsGameOver == false)
         {
-            Vector3 newPos = new Vector3(-70 *Time.deltaTime, 0, 0);
-            PlayerRB.AddForce(newPos, ForceMode.VelocityChange);
-        }
+            if (Input.GetKey(KeyCode.A))
+            {
+                Vector3 newPos = new Vector3(-70 *Time.deltaTime, 0, 0);
+                PlayerRB.AddForce(newPos, ForceMode.VelocityChange);
+            }
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            Vector3 newPos = new Vector3(70 *Time.deltaTime, 0, 0);
-            PlayerRB.AddForce(newPos, ForceMode.VelocityChange);
+            if (Input.GetKey(KeyCode.D))
+            {
+                Vector3 newPos = new Vector3(70 *Time.deltaTime, 0, 0);
+                PlayerRB.AddForce(newPos, ForceMode.VelocityChange);
+            }
         }
 
         // if (Input.GetKeyDown(KeyCode.Space))

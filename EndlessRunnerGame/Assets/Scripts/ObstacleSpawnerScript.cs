@@ -14,16 +14,22 @@ public class ObstacleSpawnerScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Time.time >= TimeToSpawn)
+        if(GameManagerScript.Instance.IsGameOver == false)
         {
-            SpawnObstacles();
-            TimeToSpawn = Time.time + TimeBetweenWaves;
-            transform.position -= transform.forward * Time.deltaTime;
-        }
+            if(Time.time >= TimeToSpawn)
+            {
+                SpawnObstacles();
+                TimeToSpawn = Time.time + TimeBetweenWaves;
 
-        if(Player.position.y < 0.75)
-        {
-            isGameOver = false;
+                Debug.Log("Testing Time Interval Between Spawning : " + TimeToSpawn + " : Current Time : " + Time.time);
+                transform.position -= transform.forward * Time.deltaTime;
+            }
+
+            if(Player.position.y < 0.75)
+            {
+                GameManagerScript.Instance.IsGameOver = true;
+                isGameOver = false;
+            }
         }
     }
 
@@ -33,7 +39,7 @@ public class ObstacleSpawnerScript : MonoBehaviour
 
         for(int i = 0; i < SpawnPoints.Length; i++)
         {
-            if(randomIndex != i && isGameOver != false)
+            if(randomIndex != i)
             {
                 newObstacleGO = (GameObject) Instantiate(Obstacle, SpawnPoints[i].position, Quaternion.identity);
                 newObstacleGO.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -10), ForceMode.VelocityChange);

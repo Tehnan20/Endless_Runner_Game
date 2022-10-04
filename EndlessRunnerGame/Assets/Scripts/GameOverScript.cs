@@ -8,7 +8,8 @@ public class GameOverScript : MonoBehaviour
     public void OnCollisionEnter(Collision col) {
         if(col.collider.tag == "Obstacle")
         {
-            FindObjectOfType<ObstacleSpawnerScript>().isGameOver = false;
+            GameManagerScript.Instance.IsGameOver = true;
+          //  FindObjectOfType<ObstacleSpawnerScript>().isGameOver = false;
         }
     }
 }
