@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObstacleSpawnerScript : MonoBehaviour
 {
     public Transform[] SpawnPoints;
-    public List<GameObject> allObstacles;
+    public List<GameObject> AllObstacles;
     public GameObject Obstacle;
     public Transform Player;
     public GameObject newObstacleGO;
@@ -13,29 +13,48 @@ public class ObstacleSpawnerScript : MonoBehaviour
     public float TimeBetweenWaves = 5f;
 
 
-    public void Start()
+    // public void Start()
+    // {
+    //     // StartCoroutine(SpawnObstacles());
+    //    // StartCoroutine(updateTheFog());
+    // }
+
+    public void Initialize()
     {
-        // StartCoroutine(SpawnObstacles());
-        StartCoroutine(updateTheFog());
+        AllObstacles = new List<GameObject>();
     }
-    void FixedUpdate()
+
+    public void Process()
     {
-        if(GameManagerScript.Instance.GameStarted == true)
+        List<GameObject> obstaclesToBeDestroyed = new List<GameObject>();        
+
+        for(int i = 0; i < AllObstacles.Count; i++)
         {
-            if(Time.time >= TimeToSpawn)
-            {
-                SpawnObstacles();
-                TimeToSpawn = Time.time + TimeBetweenWaves;
+            Vector3 obstacleTranform = AllObstacles[i].transform.position;
+            obstacleTranform.z -= 10 *Time.deltaTime;
+            AllObstacles[i].transform.position = obstacleTranform;
+        
 
-                // Debug.Log("Testing Time Interval Between Spawning : " + TimeToSpawn + " : Current Time : " + Time.time);
-                // transform.position -= transform.forward * Time.deltaTime;
-            }
-
-            if(Player.position.y < 0.75)
+            if(AllObstacles[i].transform.position.z <= -20.0f)
             {
-                GameManagerScript.Instance.GameStarted = false;
+                obstaclesToBeDestroyed.Add(AllObstacles[i]);
             }
         }
+
+        for(int i = 0; i < obstaclesToBeDestroyed.Count; i++)
+        {
+            AllObstacles.Remove(obstaclesToBeDestroyed[i]);
+            GameObject.Destroy(obstaclesToBeDestroyed[i]);
+        }
+
+        obstaclesToBeDestroyed.Clear();
+
+        if(Time.time >= TimeToSpawn)
+        {
+            SpawnObstacles();
+            TimeToSpawn = Time.time + TimeBetweenWaves;
+        }
+
     }
 
     public void SpawnObstacles()
@@ -47,37 +66,37 @@ public class ObstacleSpawnerScript : MonoBehaviour
             if(randomIndex != i)
             {
                 newObstacleGO = (GameObject) Instantiate(Obstacle, SpawnPoints[i].position, Quaternion.identity);
-                allObstacles.Add(newObstacleGO);
+                AllObstacles.Add(newObstacleGO);
                 // newObstacleGO.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -10), ForceMode.VelocityChange);
             }
         }
     }
 
-    void Awake()
-    {
-        allObstacles = new List<GameObject>();
-    }
+    // void Awake()
+    // {
+    //     allObstacles = new List<GameObject>();
+    // }
 
-    void Update()
-    {
-        for(int i = 0; i < allObstacles.Count; i++)
-        {
-            Vector3 obstacleTranform = allObstacles[i].transform.position;
-            obstacleTranform.z -= 10 *Time.deltaTime;
-            allObstacles[i].transform.position = obstacleTranform;
-        }
+    // void Update()
+    // {
+    //     for(int i = 0; i < allObstacles.Count; i++)
+    //     {
+    //         Vector3 obstacleTranform = allObstacles[i].transform.position;
+    //         obstacleTranform.z -= 10 *Time.deltaTime;
+    //         allObstacles[i].transform.position = obstacleTranform;
+    //     }
 
-    }
+    // }
 
-    public IEnumerator updateTheFog() 
-    {
-        while(true)
-        { 
-            yield return new WaitForSeconds(1); 
+    // public IEnumerator updateTheFog() 
+    // {
+    //     while(true)
+    //     { 
+    //         yield return new WaitForSeconds(1); 
 
-            RenderSettings.fogDensity += 0.0015f;
-        }
-    }
+    //         RenderSettings.fogDensity += 0.0015f;
+    //     }
+    // }
 
     // public IEnumerator SpawnObstacles()
     // {

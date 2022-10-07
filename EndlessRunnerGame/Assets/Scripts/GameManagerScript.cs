@@ -43,6 +43,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void Awake()
     {
+        Application.targetFrameRate = 60;
         ViewManager.Initialize();
     }
 

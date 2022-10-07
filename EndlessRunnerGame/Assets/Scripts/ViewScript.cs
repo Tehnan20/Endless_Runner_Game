@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class ViewScript : ManagerScript
 {
-    public virtual void OnInitialize()
+    public void Initialize()
     {
         this.LoadManagers();
+        this.OnInitialize();
+    }
+
+    public virtual void OnInitialize()
+    {
     }
 
     public virtual void OnStart()

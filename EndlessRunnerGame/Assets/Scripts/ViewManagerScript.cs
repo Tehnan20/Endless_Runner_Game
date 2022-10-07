@@ -19,7 +19,7 @@ public class ViewManagerScript : MonoBehaviour
 
         foreach(KeyValuePair<string, ViewScript> View in Views)
         {
-            View.Value.OnInitialize();
+            View.Value.Initialize();
         }
     }
 

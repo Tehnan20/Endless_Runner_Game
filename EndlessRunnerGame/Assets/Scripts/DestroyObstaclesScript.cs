@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DestroyObstaclesScript : MonoBehaviour
 {
-    void OnTriggerEnter(Collider col)
-    {
-        FindObjectOfType<ObstacleSpawnerScript>().allObstacles.Remove(col.gameObject);
-        Destroy(col.gameObject, 1f);
-    }
+    // void OnTriggerEnter(Collider col)
+    // {
+    //     FindObjectOfType<ObstacleSpawnerScript>().allObstacles.Remove(col.gameObject);
+    //     Destroy(col.gameObject, 1f);
+    // }
 }
