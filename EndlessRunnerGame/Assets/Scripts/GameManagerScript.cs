@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Remove this later, just for reference
-public class CalculatorScript
-{
-    public static int Add(int n1, int n2)
-    {
-        int sum = n1 + n2;
-        return sum;
-    }
+// public class CalculatorScript
+// {
+//     public static int Add(int n1, int n2)
+//     {
+//         int sum = n1 + n2;
+//         return sum;
+//     }
 
-    public static int Subtract(int n1, int n2)
-    {
-        int sub = n1 - n2;
-        return sub;
-    }
-}
+//     public static int Subtract(int n1, int n2)
+//     {
+//         int sub = n1 - n2;
+//         return sub;
+//     }
+// }
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -35,5 +36,23 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    public bool IsGameOver = false;
+    public bool GameStarted;
+    public Text MainViewHighScoreText;
+    public Text GameOverHighScoreText;
+    public ViewManagerScript ViewManager;
+
+    public void Awake()
+    {
+        ViewManager.Initialize();
+    }
+
+    public void Start()
+    {
+        ViewManager.Setup();
+    }
+    
+    public void Update()
+    {
+        ViewManager.Process();
+    }
 }

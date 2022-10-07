@@ -9,7 +9,7 @@ public class EndlessRunnerGame : MonoBehaviour
     public Vector3 Offset;
     void Update()
     {
-        if(GameManagerScript.Instance.IsGameOver == false)
+        if(GameManagerScript.Instance.GameStarted == false)
         {
             transform.position = Player.position + Offset;   
         }
@@ -17,17 +17,17 @@ public class EndlessRunnerGame : MonoBehaviour
     
     void FixedUpdate()
     {
-        if(GameManagerScript.Instance.IsGameOver == false)
+        if(GameManagerScript.Instance.GameStarted == true)
         {
             if (Input.GetKey(KeyCode.A))
             {
-                Vector3 newPos = new Vector3(-60 *Time.deltaTime, 0, 0);
+                Vector3 newPos = new Vector3(-40 *Time.deltaTime, 0, 0);
                 PlayerRB.AddForce(newPos, ForceMode.VelocityChange);
             }
 
             if (Input.GetKey(KeyCode.D))
             {
-                Vector3 newPos = new Vector3(60 *Time.deltaTime, 0, 0);
+                Vector3 newPos = new Vector3(40 *Time.deltaTime, 0, 0);
                 PlayerRB.AddForce(newPos, ForceMode.VelocityChange);
             }
         }

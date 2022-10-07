@@ -20,7 +20,7 @@ public class ObstacleSpawnerScript : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if(GameManagerScript.Instance.IsGameOver == false)
+        if(GameManagerScript.Instance.GameStarted == true)
         {
             if(Time.time >= TimeToSpawn)
             {
@@ -33,7 +33,7 @@ public class ObstacleSpawnerScript : MonoBehaviour
 
             if(Player.position.y < 0.75)
             {
-                GameManagerScript.Instance.IsGameOver = true;
+                GameManagerScript.Instance.GameStarted = false;
             }
         }
     }
@@ -73,7 +73,6 @@ public class ObstacleSpawnerScript : MonoBehaviour
     {
         while(true)
         { 
-            //this makes the loop itself yield 
             yield return new WaitForSeconds(1); 
 
             RenderSettings.fogDensity += 0.0015f;
