@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameOverViewScript : ViewScript
 {
-//    public ViewManagerScript script;
+    // public ViewManagerScript script;
     // public void OnCollisionEnter(Collision col) 
     // {
     //     if(col.collider.tag == "Obstacle")

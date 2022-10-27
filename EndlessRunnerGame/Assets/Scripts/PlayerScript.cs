@@ -17,11 +17,11 @@ public class PlayerScript : MonoBehaviour
     {
         Manager = manager;
         View = view;
+        transform.position = Player.position + Offset;
     }
 
     public void Process()
     {
-
         if (Input.GetKey(KeyCode.A))
         {
             Vector3 newPos = new Vector3(-StrafeSpeed *Time.deltaTime, 0, 0);
@@ -33,35 +33,25 @@ public class PlayerScript : MonoBehaviour
             Vector3 newPos = new Vector3(StrafeSpeed *Time.deltaTime, 0, 0);
             PlayerRB.AddForce(newPos, ForceMode.VelocityChange);
         }
- 
-//        if(GameManagerScript.Instance.GameStarted == false)
-//        {
-        transform.position = Player.position + Offset;   
-//        }
     }
-    
-    // void FixedUpdate()
-    // {
-    //     // if(GameManagerScript.Instance.GameStarted == true)
-    //     // {
-    //     // }
-    // }
 
     public void OnCollisionEnter(Collision col) 
     {
-        // if(col.collider.tag == "Obstacle")
-        // {
-        //     Debug.Log(col.collider.tag);
-        //     Manager.GameStarted = false;
-        // }
+        if(col.collider.tag == "Obstacle")
+        {
+            Debug.Log(col.collider.tag);
+            Manager.GameStarted = false;
+            View.Open("GameOverView");
+            View.Close("GameHUDView");
+        }
 
-        // if(Manager != null)
-        // {
-        //     if(Manager.GameStarted == false)
-        //     {
-        //         View.Open("GameOverView");
-        //         View.Close("GameHUDView");
-        //     }
-        // }
-    }    
+    //     if(Manager != null)
+    //     {
+    //         if(Manager.GameStarted == false)
+    //         {
+    //             View.Open("GameOverView");
+    //             View.Close("GameHUDView");
+    //         }
+    //     }
+    }
 }
